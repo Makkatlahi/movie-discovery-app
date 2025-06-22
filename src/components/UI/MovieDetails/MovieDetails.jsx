@@ -1,5 +1,5 @@
 import React from "react";
-import { IMAGE_BASE_URL } from "../../services/movieAPI";
+import { IMAGE_BASE_URL } from "../../../services/movieAPI";
 import "./MovieDetails.css";
 
 const MovieDetails = ({ movie, onClose }) => {
