@@ -1,0 +1,31 @@
+.search-bar {
+  display: flex;
+  max-width: 500px;
+  margin: 0 auto;
+  gap: 0.5rem;
+}
+
+.search-input {
+  flex: 1;
+  padding: 0.75rem;
+  border: none;
+  border-radius: 25px;
+  font-size: 1rem;
+  outline: none;
+}
+
+.search-btn {
+  padding: 0.75rem 1rem;
+  background: hsl(113, 23.9%, 13.9%);
+  border: none;
+  border-radius: 25px;
+  color: white;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+.search-btn:hover {
+  background: rgb(208, 187, 187);
+  transform: scale(1.05);
+}
