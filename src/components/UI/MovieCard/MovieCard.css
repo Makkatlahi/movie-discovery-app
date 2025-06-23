@@ -1,15 +1,15 @@
 .movie-card {
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 15px;
+  background: var(--overlay-light);
+  border-radius: var(--border-radius);
   overflow: hidden;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all var(--transition-fast);
   backdrop-filter: blur(10px);
 }
 
 .movie-card:hover {
   transform: translateY(-10px);
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+  box-shadow: var(--shadow-card);
 }
 
 .movie-poster {
@@ -21,7 +21,7 @@
   width: 100%;
   height: 350px;
   object-fit: cover;
-  transition: transform 0.3s ease;
+  transition: transform var(--transition-fast);
 }
 
 .movie-card:hover .movie-poster img {
@@ -35,14 +35,14 @@
 }
 
 .favorite-btn {
-  background: rgba(0, 0, 0, 0.5);
+  background: var(--overlay-medium);
   border: none;
-  border-radius: 50%;
+  border-radius: var(--border-radius-round);
   width: 40px;
   height: 40px;
   font-size: 1.2rem;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all var(--transition-fast);
 }
 
 .favorite-btn:hover {
@@ -50,18 +50,18 @@
 }
 
 .movie-info {
-  padding: 1rem;
+  padding: var(--spacing-md);
 }
 
 .movie-info h3 {
-  margin: 0 0 0.5rem 0;
+  margin: 0 0 var(--spacing-sm) 0;
   font-size: 1.1rem;
   line-height: 1.3;
 }
 
 .movie-year,
 .movie-rating {
-  margin: 0.25rem 0;
+  margin: var(--spacing-xs) 0;
   opacity: 0.8;
   font-size: 0.9rem;
 }

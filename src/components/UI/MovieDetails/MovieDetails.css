@@ -4,16 +4,16 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(0, 0, 0, 0.8);
+  background: var(--overlay-dark);
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 1000;
-  padding: 2rem;
+  padding: var(--spacing-lg);
 }
 
 .modal-content {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: var(--primary-gradient);
   border-radius: 20px;
   max-width: 800px;
   width: 100%;
@@ -24,65 +24,67 @@
 
 .close-btn {
   position: absolute;
-  top: 1rem;
-  right: 1rem;
-  background: rgba(255, 255, 255, 0.2);
+  top: var(--spacing-md);
+  right: var(--spacing-md);
+  background: var(--overlay-light);
   border: none;
-  border-radius: 50%;
+  border-radius: var(--border-radius-round);
   width: 40px;
   height: 40px;
   color: white;
   font-size: 1.5rem;
   cursor: pointer;
   z-index: 1001;
+  transition: all var(--transition-fast);
+}
+
+.close-btn:hover {
+  background: var(--overlay-medium);
+  transform: scale(1.1);
 }
 
 .movie-details {
   display: flex;
-  gap: 2rem;
-  padding: 2rem;
+  gap: var(--spacing-lg);
+  padding: var(--spacing-lg);
 }
 
 .detail-poster {
   width: 300px;
   height: auto;
-  border-radius: 10px;
+  border-radius: var(--border-radius-sm);
   flex-shrink: 0;
 }
 
 .detail-info h2 {
-  margin: 0 0 1rem 0;
+  margin: 0 0 var(--spacing-md) 0;
   font-size: 2rem;
-  color: white;
 }
 
 .detail-year,
 .detail-rating,
 .detail-runtime {
-  margin: 0.5rem 0;
+  margin: var(--spacing-sm) 0;
   opacity: 0.9;
-  color: white;
 }
 
 .detail-genres {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.5rem;
-  margin: 1rem 0;
+  gap: var(--spacing-sm);
+  margin: var(--spacing-md) 0;
 }
 
 .genre-tag {
-  background: rgba(255, 255, 255, 0.2);
-  padding: 0.25rem 0.75rem;
+  background: var(--overlay-light);
+  padding: var(--spacing-xs) 0.75rem;
   border-radius: 15px;
   font-size: 0.8rem;
-  color: white;
 }
 
 .detail-overview {
   line-height: 1.6;
-  margin: 1rem 0;
-  color: white;
+  margin: var(--spacing-md) 0;
 }
 
 @media (max-width: 768px) {
@@ -94,5 +96,9 @@
   .detail-poster {
     width: 250px;
     margin: 0 auto;
+  }
+
+  .modal-content {
+    margin: var(--spacing-md);
   }
 }
