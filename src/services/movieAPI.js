@@ -17,7 +17,7 @@ class MovieAPIService {
   // Public methods to interact with the API
   async searchMovies(query) {
     const data = await this.#fetchAPI(
-      `/search/movie?api_key=${API_KEY}&query=${encodeURIComponent(query)}`
+      `/search/movie?api_key=${API_KEY}&query=${encodeURIComponent(query)}` // Search for movies based on the query
     );
     // Check if results exist, otherwise return an empty array
     return data.results || [];
@@ -38,7 +38,7 @@ class MovieAPIService {
   async getImageUrl(posterPath) {
     // Return the full image URL or a placeholder if no poster path is provided
     return posterPath
-      ? `${IMAGE_BASE_URL}${posterPath}`
+      ? `${IMAGE_BASE_URL}${posterPath}` // Construct the full URL for the movie poster
       : "/api/placeholder/300/450";
   }
 }
