@@ -25,8 +25,7 @@ const MovieCard = ({ movie, onMovieClick, isFavorite, onToggleFavorite }) => {
   return (
     <div className="movie-card" onClick={handleCardClick}>
       <div className="movie-poster">
-        <img src={posterUrl} alt={movie.title} /> // Display the movie poster
-        image
+        <img src={posterUrl} alt={movie.title} />
         <div className="movie-overlay">
           <button
             className={`favorite-btn ${isFavorite ? "favorited" : ""}`}

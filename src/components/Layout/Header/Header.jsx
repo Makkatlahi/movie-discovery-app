@@ -15,7 +15,10 @@ const Header = ({
 }) => {
   return (
     <header className="header">
-      <h1>🎬 Movie Discovery</h1>
+      <h1>
+        <span className="material-symbols-outlined">motion_play</span>Movie
+        Discovery
+      </h1>
       <nav className="nav-buttons">
         <button
           className={`nav-btn ${

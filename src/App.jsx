@@ -8,11 +8,13 @@ import { useMovies } from "./hooks/useMovies.js";
 import { useFavorites } from "./hooks/useFavorites.js";
 import { movieAPI } from "./services/movieAPI.js";
 import "./styles/App.css"; // Importing the main CSS file for styling
+import "./styles/variables.css"; // Importing CSS variables for consistent styling across the app
 
 const App = () => {
   const [searchTerm, setSearchTerm] = useState(""); // State to manage the search term input by the user
   const [selectedMovie, setSelectedMovie] = useState(null); // State to manage the currently selected movie for details view
 
+  //Destructuring the custom hook useMovies to get the necessary data and functions
   const {
     movies, // Array of movie objects fetched from the API
     loading, // Boolean indicating if the movies are currently being loaded
@@ -32,6 +34,7 @@ const App = () => {
     loadPopularMovies();
   }, []);
 
+  // Function to handle movie card click, fetching and displaying movie details
   const handleMovieClick = async (movie) => {
     try {
       const movieDetails = await movieAPI.getMovieDetails(movie.id);
@@ -59,11 +62,13 @@ const App = () => {
       />
 
       <main className="content">
+        {/* Display error message if there is an error fetching movies */}
         {error && <div className="error-message">❌ {error}</div>}
-
+        {/* Display loading indicator while movies are being fetched */}
         {loading ? (
           <div className="loading">🎬 Loading movies...</div>
         ) : (
+          // Map through the movies array and render a MovieCard for each movie
           <div className="movies-grid">
             {movies.map((movie) => (
               <MovieCard

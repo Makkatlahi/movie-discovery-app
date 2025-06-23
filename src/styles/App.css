@@ -8,37 +8,13 @@
 
 .app {
   min-height: 100vh;
-  background: linear-gradient(
-    135deg,
-    rgb(234, 161, 102) 0%,
-    rgb(75, 162, 142) 100%
-  );
-  color: white;
+  background: linear-gradient(135deg, rgb(24, 23, 33) 0%, rgb(19, 44, 38) 100%);
+  color: rgb(214, 214, 214);
   font-family: "Michroma", sans-serif;
 }
 
-.header-icon {
-  font-size: 8rem;
-  display: inline-block;
-  margin-right: 0.5rem;
-  vertical-align: middle;
-}
-
-.header {
-  padding: 2rem;
-  text-align: center;
-  background: rgba(0, 0, 0, 0.3);
-  backdrop-filter: blur(10px);
-}
-
-.app-title {
-  font-size: 4rem;
-  margin: 0 0 1rem 0;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-}
-
 .content {
-  padding: 2rem;
+  padding: 3rem;
 }
 
 .movies-grid {
@@ -53,19 +29,6 @@
   text-align: center;
   font-size: 1.2rem;
   margin: 2rem 0;
-}
-
-.attribution {
-  text-align: center;
-  padding: 2rem;
-  background: rgba(0, 0, 0, 0.3);
-  margin-top: 2rem;
-}
-
-.attribution p {
-  margin: 0.5rem 0;
-  opacity: 0.8;
-  font-size: 0.9rem;
 }
 
 @media (max-width: 768px) {
