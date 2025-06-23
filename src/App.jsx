@@ -7,7 +7,7 @@ import MovieDetails from "./components/UI/MovieDetails/MovieDetails.jsx";
 import { useMovies } from "./hooks/useMovies.js";
 import { useFavorites } from "./hooks/useFavorites.js";
 import { movieAPI } from "./services/movieAPI.js";
-import "./styles/globals.css";
+import "./styles/App.css"; // Importing the main CSS file for styling
 
 const App = () => {
   const [searchTerm, setSearchTerm] = useState(""); // State to manage the search term input by the user

@@ -1,6 +1,7 @@
-// MovieCard.jsx
-import { IMAGE_BASE_URL } from "../../../services/movieAPI";
+import { API_CONFIG } from "../../../utils/constants";
 import "./MovieCard.css";
+
+const { IMAGE_BASE_URL } = API_CONFIG; // Destructure the IMAGE_BASE_URL from API_CONFIG
 
 // Description: A card component to display movie details, including poster, title, release year, rating, and a favorite toggle button.
 const MovieCard = ({ movie, onMovieClick, isFavorite, onToggleFavorite }) => {
