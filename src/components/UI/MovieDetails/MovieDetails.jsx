@@ -3,9 +3,11 @@ import { API_CONFIG } from "../../../utils/constants";
 const { IMAGE_BASE_URL } = API_CONFIG; // Destructure the IMAGE_BASE_URL from API
 import "./MovieDetails.css";
 
+// Description: A component to display detailed information about a selected movie, including poster, title, release year, rating, runtime, genres, and overview.
 const MovieDetails = ({ movie, onClose }) => {
   if (!movie) return null;
 
+  // Ensure the movie object has the necessary properties
   const posterUrl = movie.poster_path
     ? `${IMAGE_BASE_URL}${movie.poster_path}`
     : "/api/placeholder/300/450";
