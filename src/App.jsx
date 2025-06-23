@@ -1,97 +1,66 @@
-import React, { useState, useEffect } from "react";
-import { movieAPI } from "./services/movieAPI";
-import SearchBar from "./components/SearchBar/SearchBar";
-import Navigation from "./components/Navigation/Navigation";
-import MovieCard from "./components/MovieCard/MovieCard";
-import MovieDetails from "./components/MovieDetails/MovieDetails";
-import "./styles/App.css";
+// Description: Main application component that manages the movie browsing experience, including searching, viewing details, and managing favorites.
+import { useState, useEffect } from "react";
+import Header from "./components/Layout/Header/Header.jsx";
+import Footer from "./components/Layout/Footer/Footer.jsx";
+import MovieCard from "./components/UI/MovieCard/MovieCard.jsx";
+import MovieDetails from "./components/UI/MovieDetails/MovieDetails.jsx";
+import { useMovies } from "./hooks/useMovies.js";
+import { useFavorites } from "./hooks/useFavorites.js";
+import { movieAPI } from "./services/movieAPI.js";
+import "./styles/globals.css";
 
 const App = () => {
-  const [movies, setMovies] = useState([]);
-  const [searchTerm, setSearchTerm] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [selectedMovie, setSelectedMovie] = useState(null);
-  const [favorites, setFavorites] = useState(() => {
-    const saved = localStorage.getItem("movieFavorites");
-    return saved ? JSON.parse(saved) : [];
-  });
-  const [currentView, setCurrentView] = useState("popular");
+  const [searchTerm, setSearchTerm] = useState(""); // State to manage the search term input by the user
+  const [selectedMovie, setSelectedMovie] = useState(null); // State to manage the currently selected movie for details view
 
-  // Load popular movies on component mount
+  const {
+    movies, // Array of movie objects fetched from the API
+    loading, // Boolean indicating if the movies are currently being loaded
+    error, // Error message if an error occurred during the API call
+    currentView, // Current view type (popular, search, favorites)
+    loadPopularMovies, // Function to load popular movies from the API
+    searchMovies, // Function to search for movies based on the search term
+    showFavoriteMovies, // Function to filter and display favorite movies
+  } = useMovies(); // Custom hook to manage movie data and API interactions
+
+  // Custom hook to manage favorites functionality
+  const { favorites, toggleFavorite, isFavorite, favoritesCount } =
+    useFavorites();
+
+  // Load popular movies on mount
   useEffect(() => {
     loadPopularMovies();
   }, []);
 
-  // Save favorites to localStorage whenever favorites change
-  useEffect(() => {
-    localStorage.setItem("movieFavorites", JSON.stringify(favorites));
-  }, [favorites]);
-
-  const loadPopularMovies = async () => {
-    setLoading(true);
-    const popularMovies = await movieAPI.getPopularMovies();
-    setMovies(popularMovies);
-    setCurrentView("popular");
-    setLoading(false);
-  };
-
-  const handleSearch = async (query) => {
-    setLoading(true);
-    const searchResults = await movieAPI.searchMovies(query);
-    setMovies(searchResults);
-    setCurrentView("search");
-    setLoading(false);
-  };
-
   const handleMovieClick = async (movie) => {
-    const movieDetails = await movieAPI.getMovieDetails(movie.id);
-    if (movieDetails) {
+    try {
+      const movieDetails = await movieAPI.getMovieDetails(movie.id);
       setSelectedMovie(movieDetails);
+    } catch (error) {
+      console.error("Error loading movie details:", error);
     }
   };
 
-  const toggleFavorite = (movieId) => {
-    setFavorites((prev) =>
-      prev.includes(movieId)
-        ? prev.filter((id) => id !== movieId)
-        : [...prev, movieId]
-    );
-  };
-
-  const handleViewChange = (view) => {
-    if (view === "popular") {
-      loadPopularMovies();
-    } else if (view === "favorites") {
-      const favoriteMovies = movies.filter((movie) =>
-        favorites.includes(movie.id)
-      );
-      setMovies(favoriteMovies);
-      setCurrentView("favorites");
-    }
+  const handleShowFavorites = () => {
+    // Show favorite movies when the user clicks the favorites button
+    showFavoriteMovies(favorites);
   };
 
   return (
     <div className="app">
-      <header className="header">
-        <h1 className="app-title">
-          <span className="header-icon material-symbols-outlined">
-            motion_play
-          </span>{" "}
-          Movie Discovery
-        </h1>
-        <Navigation
-          currentView={currentView}
-          onViewChange={handleViewChange}
-          favoritesCount={favorites.length}
-        />
-        <SearchBar
-          onSearch={handleSearch}
-          searchTerm={searchTerm}
-          setSearchTerm={setSearchTerm}
-        />
-      </header>
+      <Header
+        currentView={currentView}
+        onLoadPopular={loadPopularMovies}
+        onShowFavorites={handleShowFavorites}
+        favoritesCount={favoritesCount}
+        onSearch={searchMovies}
+        searchTerm={searchTerm}
+        setSearchTerm={setSearchTerm}
+      />
 
       <main className="content">
+        {error && <div className="error-message">❌ {error}</div>}
+
         {loading ? (
           <div className="loading">🎬 Loading movies...</div>
         ) : (
@@ -101,7 +70,7 @@ const App = () => {
                 key={movie.id}
                 movie={movie}
                 onMovieClick={handleMovieClick}
-                isFavorite={favorites.includes(movie.id)}
+                isFavorite={isFavorite(movie.id)}
                 onToggleFavorite={toggleFavorite}
               />
             ))}
@@ -116,13 +85,7 @@ const App = () => {
         />
       )}
 
-      <footer className="attribution">
-        <p>
-          This application uses TMDB and the TMDB APIs but is not endorsed,
-          certified, or otherwise approved by TMDB.
-        </p>
-        <p>Powered by The Movie Database (TMDB)</p>
-      </footer>
+      <Footer />
     </div>
   );
 };
